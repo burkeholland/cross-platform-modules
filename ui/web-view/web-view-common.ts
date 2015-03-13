@@ -5,6 +5,7 @@ import proxy = require("ui/core/proxy");
 
 export module knownEvents {
     export var finished: string = "finished";
+    export var loadStarted: string = "loadStarted";
 }
 var urlProperty = new dependencyObservable.Property(
     "url",
@@ -51,6 +52,18 @@ export class WebView extends view.View implements definition.WebView {
 
         var args = <definition.FinishedEventData>{
             eventName: knownEvents.finished,
+            object: this,
+            url: url,
+            error: error
+        };
+
+        this.notify(args);
+    }
+
+    public _onLoadStarted(url: string, error?: string) {
+
+        var args = <definition.FinishedEventData>{
+            eventName: knownEvents.loadStarted,
             object: this,
             url: url,
             error: error

@@ -18,6 +18,14 @@ class UIWebViewDelegateImpl extends NSObject implements UIWebViewDelegate {
         return this;
     }
     
+    public webViewShouldStartLoadWithRequestNavigationType(webView: UIWebView, request:NSURLRequest, navigationType:number) {
+        if (request.URL) {
+            trace.write("UIWebViewDelegateClass.webViewShouldStartLoadWithRequestNavigationType()", trace.categories.Debug);
+            this._owner._onLoadStarted(request.URL.absoluteString);
+        }
+        return true;
+    }
+
     public webViewDidStartLoad(webView: UIWebView) {
         trace.write("UIWebViewDelegateClass.webViewDidStartLoad()", trace.categories.Debug);
     }
